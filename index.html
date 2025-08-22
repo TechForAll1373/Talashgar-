@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="تلاشگر — موتور جستجوی فارسی هوشمند، آزاد، بدون سانسور و حریم‌محور. جستجوی امن با حمایت از حریم خصوصی." />
+  <meta name="theme-color" content="#000000" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://talashgar.ir " />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="تلاشگر — موتور جستجوی فارسی هوشمند" />
+  <meta property="og:description" content="جستجوی آزاد، بدون سانسور و حریم‌محور برای فارسی‌زبانان." />
+  <meta property="og:image" content="https://talashgar.ir/logo.png " />
+  <meta property="og:url" content="https://talashgar.ir " />
+  <meta property="og:type" content="website" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="تلاشگر — موتور جستجوی فارسی هوشمند" />
+  <meta name="twitter:description" content="جستجوی آزاد و امن برای فارسی‌زبانان." />
+  <meta name="twitter:image" content="https://talashgar.ir/logo.png " />
+
+  <title>تلاشگر — موتور جستجوی فارسی هوشمند</title>
+
+  <style>
+    :root {
+      --bg: #000000;
+      --bg-1: #1A1A1A;
+      --bg-2: #333333;
+      --text: #FFFFFF;
+      --text-muted: #666666;
+      --border: #4D4D4D;
+      --primary: #448aff;
+      --success: #00e676;
+      --gradient: linear-gradient(45deg, var(--primary), var(--success));
+      --shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+      --transition: all 0.3s ease;
+    }
+
+    [data-theme="light"] {
+      --bg: #f5f5f5;
+      --bg-1: #e0e0e0;
+      --bg-2: #cccccc;
+      --text: #000000;
+      --text-muted: #555555;
+      --border: #bbbbbb;
+      --shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      direction: rtl;
+      line-height: 1.7;
+      transition: var(--transition);
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    header {
+      text-align: center;
+      padding: 60px 20px 40px;
+    }
+
+    header h1 {
+      font-size: 3rem;
+      background: linear-gradient(90deg, #e040fb, #448aff, #00e676);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 10px;
+      animation: fadeIn 1s ease;
+    }
+
+    header p {
+      color: var(--text-muted);
+      font-size: 1.2rem;
+      animation: fadeIn 1.5s ease;
+    }
+
+    .search-box {
+      display: flex;
+      justify-content: center;
+      margin: 40px 0;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .search-box input {
+      flex: 1;
+      min-width: 300px;
+      max-width: 600px;
+      padding: 16px 20px;
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      background-color: var(--bg-1);
+      color: var(--text);
+      font-size: 1.1rem;
+      outline: none;
+      transition: var(--transition);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .search-box input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 15px rgba(68, 138, 255, 0.3);
+      transform: translateY(-1px);
+    }
+
+    .voice-btn {
+      padding: 16px 25px;
+      border: none;
+      border-radius: 50px;
+      background: #ff9800;
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+      transition: var(--transition);
+      box-shadow: var(--shadow);
+    }
+
+    .search-btn {
+      padding: 16px 25px;
+      border: none;
+      border-radius: 50px;
+      background: var(--gradient);
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+      transition: var(--transition);
+      box-shadow: var(--shadow);
+    }
+
+    .search-box button:hover,
+    .voice-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    .engines {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 18px;
+      margin: 50px 0;
+    }
+
+    .engine {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--bg-1);
+      border-radius: 12px;
+      padding: 18px 12px;
+      text-align: center;
+      border: 1px solid var(--border);
+      transition: var(--transition);
+      cursor: pointer;
+      opacity: 0;
+      transform: translateY(20px);
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .engine:hover,
+    .engine:focus {
+      background-color: var(--bg-2);
+      transform: translateY(-5px);
+      box-shadow: var(--shadow);
+    }
+
+    .engine img {
+      width: 48px;
+      height: 48px;
+      margin-bottom: 10px;
+      border-radius: 50%;
+      object-fit: cover;
+      transition: var(--transition);
+    }
+
+    .engine:hover img,
+    .engine:focus img {
+      transform: scale(1.1);
+    }
+
+    .engine p {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+    }
+
+    .links {
+      margin: 40px 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .links a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+      transition: var(--transition);
+    }
+
+    .links a:hover,
+    .links a:focus {
+      text-decoration: underline;
+      color: var(--success);
+    }
+
+    .theme-toggle {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background: var(--bg-1);
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 10px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      z-index: 1000;
+      transition: var(--transition);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+      font-size: 1rem;
+    }
+
+    .theme-toggle:hover,
+    .theme-toggle:focus {
+      background: var(--bg-2);
+    }
+
+    .toast {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: var(--bg-2);
+      color: var(--text);
+      padding: 12px 20px;
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      z-index: 2000;
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: all 0.3s ease;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @media (max-width: 768px) {
+      .search-box {
+        flex-direction: column;
+      }
+      .voice-btn {
+        order: -1;
+        width: 100%;
+        max-width: 600px;
+      }
+      .search-btn {
+        width: 100%;
+        max-width: 600px;
+      }
+      header h1 {
+        font-size: 2.5rem;
+      }
+    }
+  </style>
+</head>
+<body data-theme="dark">
+  <button class="theme-toggle" id="themeToggle" aria-label="تغییر تم">🌓 تم</button>
+
+  <div class="container">
+    <header>
+      <h1>تلاشگر</h1>
+      <p>موتور جستجوی فارسیِ هوشمند، آزاد و بدون سانسور</p>
+    </header>
+
+    <div class="search-box" role="search">
+      <button class="voice-btn" id="voiceBtn" title="جستجوی صوتی" aria-label="جستجوی صوتی">🎤</button>
+      <input type="text" id="searchInput" placeholder="جستجو کنید..." autocomplete="off" aria-label="عبارت جستجو" />
+      <button class="search-btn" id="searchBtn" aria-label="اجرای جستجو">جستجو</button>
+    </div>
+
+    <div class="engines" id="engines"></div>
+
+    <div class="links">
+      <a href="https://zarinp.al/cafepersians " target="_blank" rel="noopener" title="حمایت مالی از طریق زرین‌پال">حمایت: زرین‌پال</a>
+      <a href="https://github.com/TechForAll1373 " target="_blank" rel="noopener" title="سورس کد در گیت‌هاب">گیت‌هاب</a>
+      <a href="https://takl.ink/Cafepersian " target="_blank" rel="noopener" title="ارتباط با توسعه‌دهنده">ارتباط</a>
+    </div>
+
+    <footer>
+      &copy; <span id="year">2025</span> — تلاشگر | طراحی با #HTML5 #CSS #JavaScript | افتخار به نام فناوری آزاد ایران
+    </footer>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script defer>
+    // سال جاری
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // مدیریت تم
+    const body = document.body;
+    const themeToggle = document.getElementById('themeToggle');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const savedTheme = localStorage.getItem('theme');
+    const initialTheme = savedTheme || (prefersDark ? 'dark' : 'light');
+    body.setAttribute('data-theme', initialTheme);
+
+    themeToggle.addEventListener('click', () => {
+      const newTheme = body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      body.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+    });
+
+    // موتورهای جستجو
+    const engines = [
+      { name: "DuckDuckGo", key: "duckduckgo", icon: "https://duckduckgo.com/favicon.ico ", url: q => `https://duckduckgo.com/?q=${q}` },
+      { name: "ویکی‌پدیا", key: "wikipedia", icon: " https://en.wikipedia.org/static/favicon/wikipedia.ico ", url: q => `https://fa.wikipedia.org/wiki/ ${q}` },
+      { name: "کتابخانه آزاد", key: "openlibrary", icon: "https://openlibrary.org/static/images/favicon.ico ", url: q => `https://openlibrary.org/search?q=${q}` },
+      { name: "F-Droid", key: "f-droid", icon: " https://f-droid.org/favicon.ico ", url: q => `https://f-droid.org/en/packages/?q=${q}` },
+      { name: "APKPure", key: "apkpure", icon: " https://www.apkpure.com/favicon.ico ", url: q => `https://apkpure.com/search?q=${q}` },
+      { name: "APK Mirror", key: "apk_mirror", icon: " https://apkmirror.com/favicon.ico ", url: q => `https://www.apkmirror.com/?post_type=app_release&searchtype=apk&s=${q}` },
+      { name: "Gigablast", key: "gigablast", icon: " https://www.gigablast.com/favicon.ico ", url: q => `https://gigablast.com/search?q=${q}` },
+      { name: "Qwant", key: "qwant", icon: " https://www.qwant.com/favicon.ico ", url: q => `https://www.qwant.com/?q=${q}&t=web` },
+      { name: "Mojeek", key: "mojeek", icon: " https://www.mojeek.com/favicon.ico ", url: q => `https://www.mojeek.com/search?q=${q}` },
+      { name: "ویکی‌مدیا", key: "wikimedia", icon: " https://wikimediafoundation.org/favicon.ico ", url: q => `https://commons.wikimedia.org/wiki/Special :Search/${q}` }
+    ];
+
+    // ایجاد موتورها با IntersectionObserver
+    const enginesContainer = document.getElementById('engines');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = 1;
+          entry.target.style.transform = 'translateY(0)';
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    engines.forEach((engine, index) => {
+      const a = document.createElement('a');
+      a.className = 'engine';
+      a.href = '#';
+      a.tabIndex = 0;
+      a.style.transitionDelay = `${0.1 * index}s`;
+      a.onclick = (e) => {
+        e.preventDefault();
+        const query = document.getElementById('searchInput').value.trim();
+        if (!query) {
+          showToast('لطفاً یک عبارت جستجو وارد کنید.');
+          return;
+        }
+        const url = engine.url(encodeURIComponent(query));
+        window.open(url, '_blank', 'noopener,noreferrer');
+      };
+      a.innerHTML = `
+        <img src="${engine.icon}" alt="لوگوی ${engine.name}" loading="lazy" onerror="this.src='https://via.placeholder.com/48 '">
+        <p>${engine.name}</p>
+      `;
+      enginesContainer.appendChild(a);
+      setTimeout(() => observer.observe(a), 50 * index);
+    });
+
+    // جستجو
+    const searchInput = document.getElementById('searchInput');
+    const searchBtn = document.getElementById('searchBtn');
+
+    function performSearch() {
+      const query = searchInput.value.trim();
+      if (!query) {
+        showToast('لطفاً یک عبارت جستجو وارد کنید.');
+        return;
+      }
+      window.open(`https://duckduckgo.com/?q=${encodeURIComponent(query)}`, '_blank', 'noopener,noreferrer');
+    }
+
+    searchBtn.addEventListener('click', performSearch);
+    searchInput.addEventListener('keypress', e => {
+      if (e.key === 'Enter') performSearch();
+    });
+
+    // جستجوی صوتی
+    const voiceBtn = document.getElementById('voiceBtn');
+    function startVoiceSearch() {
+      if (!('SpeechRecognition' in window) && !('webkitSpeechRecognition' in window)) {
+        showToast('مرورگر شما از جستجوی صوتی پشتیبانی نمی‌کند.');
+        return;
+      }
+
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      const recognition = new SpeechRecognition();
+      recognition.lang = 'fa-IR';
+      recognition.continuous = false;
+      recognition.interimResults = false;
+
+      voiceBtn.textContent = '🔴';
+      voiceBtn.disabled = true;
+      showToast('در حال گوش دادن...');
+
+      recognition.start();
+
+      recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript.trim();
+        searchInput.value = transcript;
+        showToast('جستجوی صوتی: "' + transcript + '"');
+        setTimeout(() => performSearch(), 800);
+      };
+
+      recognition.onerror = (event) => {
+        showToast('خطا: ' + event.error);
+      };
+
+      recognition.onend = () => {
+        voiceBtn.textContent = '🎤';
+        voiceBtn.disabled = false;
+      };
+    }
+
+    voiceBtn.addEventListener('click', startVoiceSearch);
+
+    // نمایش پیام
+    const toast = document.getElementById('toast');
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
+  </script>
+</body>
+</html>
